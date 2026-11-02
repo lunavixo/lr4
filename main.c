@@ -31,6 +31,7 @@ double** multiply_matrixes(double **A,
                            unsigned int rows_b,
                            unsigned int cols_b);
 void max_min(double **M, unsigned int rows, unsigned int cols, double *max, double *min);
+void min_from_matrix(double **M, unsigned int rows, unsigned int cols, double *min);
 
 int main()
 {
@@ -151,10 +152,14 @@ void part2()
     print_matrix(prod_result, n_a, m_b);
 
     double min, max;
+    double min_from_all;
     max_min(A, n_a, n_a, &max, &min);
+    min_from_matrix(A, n_a, n_a, &min_from_all);
     printf("\nСеред елементів матриці А над головною діагоналлю:\n"
-           "\tмініум:   %.2lf\n"
-           "\tмаксимум: %.2lf\n",
+           "\tмініум: %.2lf\n"
+           "\tмініум над головною діагоналлю  :   %.2lf\n"
+           "\tмаксимум над головною діагоналлю: %.2lf\n",
+           min_from_all,
            min,
            max);
 
@@ -162,6 +167,25 @@ void part2()
     free_matrix(&B, n_b);
 
     pressEnterToContinue();
+}
+
+// Знаходження мінімального елементу матриці
+void min_from_matrix(double **M, unsigned int rows, unsigned int cols, double *min)
+{
+    if( M == NULL || min == NULL)
+        return;
+    for(unsigned int i = 0; i < rows; i++)
+        if(M[i] == NULL)
+            return;
+
+    *min = 0.0 / 0.0;
+
+    for(unsigned int i = 0; i < rows; i++)
+        for(unsigned int j = 0; j < cols; j++)
+        {
+            if(*min != *min) *min = M[i][j];
+            if(*min > M[i][j]) *min = M[i][j];
+        }
 }
 
 // Знаходження мінімального та максимального елементу квадратної матриці над головною діагоналлю
